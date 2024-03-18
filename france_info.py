@@ -18,7 +18,8 @@ def info_crawler(info):
         link,
         title=info.find("title").getText(),
         description=info.find("description").getText(),
-        content=info_soup.find("div", {"class": "c-body"}).getText()
+        content=info_soup.find("div", {"class": "c-body"}).getText(),
+        author="franceinfo"
     )
 
 
