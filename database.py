@@ -38,8 +38,10 @@ def insert_in_table(article):
 
     db = mysql.connector.connect(**connection_parameters)
     cursor = db.cursor()
-    cursor.execute(request, data)
-    db.commit()
-
+    try:
+        cursor.execute(request, data)
+        db.commit()
     # print(cursor.rowcount, "record inserted.")
+    except:
+        print(f"{article.link} insertion failed")
     cursor.close()
