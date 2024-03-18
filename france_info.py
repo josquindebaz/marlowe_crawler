@@ -1,21 +1,10 @@
-from dataclasses import dataclass
 from datetime import datetime
 from bs4 import BeautifulSoup
 
 import urllib3
 
 import database
-
-
-@dataclass
-class Article:
-    date: datetime = None
-    link: str = ""
-    title: str = ""
-    description: str = ""
-    content: str = ""
-    author: str = "franceinfo"
-    lang: str = "fr"
+from Article import Article
 
 
 def crawl_link(url):
@@ -66,8 +55,8 @@ if __name__ == "__main__":
         rss_content = get_rss(rss_link)
         articles = [info_crawler(item) for item in rss_content["articles"]]
 
-        # print(rss_content["description"], " -> crawled ", len(articles), " on ", len(rss_content["articles"]))
+        print(rss_content["description"], " -> crawled ", len(articles), " on ", len(rss_content["articles"]))
 
         for article in articles:
-            # print(f"Inserting {article.title}")
+            print(f"Inserting {article.title}")
             database.insert_in_table(article)
