@@ -30,15 +30,16 @@ def info_crawler(info):
     """ From title description pubDate link enclosure
         To Article
     """
-    link = info.find("link").getText()
-    info_soup = BeautifulSoup(crawl_link(link), 'lxml')
+    info_data = extract_rss_item_data(info)
+    info_soup = get_info_soup(info_data["link"])
+    parsed_info = parse_info_soup(info_soup)
 
     return Article(
-        datetime.strptime(info.find("pubDate").getText(), "%a, %d %b %Y %H:%M:%S %z"),
-        link,
-        title=info.find("title").getText(),
-        description=info.find("description").getText(),
-        content=info_soup.find("div", {"class": "c-body"}).getText(),
+        date=info_data["date"],
+        link=info_data["link"],
+        title=info_data["title"],
+        description=info_data["description"],
+        content=parsed_info["content"],
         author="franceinfo"
     )
 
