@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from datetime import datetime, timezone, timedelta
 
-from france_info import Parser
+from parsers.FranceInfoParser import FranceInfoParser
 from models.Article import Article
 from rss_parser import get_rss_soup
 
@@ -28,7 +28,7 @@ def test_extract_rss_item_data():
                 % item)
 
     feed_soup = get_rss_soup(rss_feed)
-    parser = Parser()
+    parser = FranceInfoParser()
     result = parser.extract_rss_item_data(feed_soup["articles"][0])
 
     assert result == expected
@@ -39,7 +39,7 @@ def test_parse_article_soup():
     content = '<div class="c-body">%s</div>' % expected
     soup = BeautifulSoup(content, 'lxml')
 
-    parser = Parser()
+    parser = FranceInfoParser()
     result = parser.parse_article_soup(soup)
 
     assert result["content"] == expected
@@ -64,7 +64,7 @@ def test_format_article():
         "title": "A title",
         "description": "Some article description",
     }
-    parser = Parser()
+    parser = FranceInfoParser()
     result = parser.format_article(parsed_article, metadata, author="franceinfo")
 
     assert result == expected
