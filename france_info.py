@@ -3,7 +3,27 @@ from bs4 import BeautifulSoup
 
 import database
 from models.Article import Article
-from crawlers import crawl_link, get_rss
+from crawlers import crawl_link
+from rss_parser import get_rss_soup
+
+
+def extract_rss_item_data(info):
+    return {
+        "link": info.find("link").getText(),
+        "date": datetime.strptime(info.find("pubDate").getText(), "%a, %d %b %Y %H:%M:%S %z"),
+        "title": info.find("title").getText(),
+        "description": info.find("description").getText(),
+    }
+
+
+def get_info_soup(link):
+    return BeautifulSoup(crawl_link(link), 'lxml')
+
+
+def parse_info_soup(soup):
+    return {
+        "content": soup.find("div", {"class": "c-body"}).getText()
+    }
 
 
 def info_crawler(info):
@@ -34,7 +54,7 @@ if __name__ == "__main__":
     ]
 
     for rss_link in rss_links:
-        rss_content = get_rss(rss_link)
+        rss_content = get_rss_soup(crawl_link(rss_link))
         articles = [info_crawler(item) for item in rss_content["articles"]]
 
         print(rss_content["description"], " -> crawled ", len(articles), " on ", len(rss_content["articles"]))

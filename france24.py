@@ -3,7 +3,8 @@ from datetime import datetime
 
 import database
 from models.Article import Article
-from crawlers import crawl_link, get_rss
+from crawlers import crawl_link
+from rss_parser import get_rss_soup
 
 
 def info_crawler(info):
@@ -30,7 +31,7 @@ def info_crawler(info):
 
 if __name__ == "__main__":
     rss_link = "https://www.france24.com/fr/rss"
-    rss_content = get_rss(rss_link)
+    rss_content = get_rss_soup(crawl_link(rss_link))
 
     articles = [info_crawler(item) for item in rss_content["articles"]]
 
