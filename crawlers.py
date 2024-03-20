@@ -1,5 +1,4 @@
 import urllib3
-from bs4 import BeautifulSoup
 
 
 def crawl_link(url):
@@ -10,11 +9,3 @@ def crawl_link(url):
 
     return ""
 
-
-def get_rss(url):
-    rss_soup = BeautifulSoup(crawl_link(url), 'xml')
-
-    return {
-        "description": rss_soup.find("description").getText(),
-        "articles": rss_soup.findAll("item"),
-    }
