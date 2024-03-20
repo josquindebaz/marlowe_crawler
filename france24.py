@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 import database
-from Article import Article
+from models.Article import Article
 from crawlers import crawl_link, get_rss
 
 
