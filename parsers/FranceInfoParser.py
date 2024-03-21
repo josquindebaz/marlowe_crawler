@@ -1,7 +1,7 @@
-from parsers.AbstractParser import AbstractParser
+from parsers.BaseParser import BaseParser
 
 
-class FranceInfoParser(AbstractParser):
+class FranceInfoParser(BaseParser):
     def parse_article_soup(self, soup):
         result = soup.find("div", {"class": "c-body"})
         if not result:

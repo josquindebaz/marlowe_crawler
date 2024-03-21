@@ -5,11 +5,12 @@ from crawlers import crawl_link
 from models.Article import Article
 
 
-class AbstractParser:
+class BaseParser:
     def __init__(self):
         self.articles = []
 
-    def extract_rss_item_data(self, info):
+    @staticmethod
+    def extract_rss_item_data(info):
         return {
             "link": info.find("link").getText(),
             "date": datetime.strptime(info.find("pubDate").getText(), "%a, %d %b %Y %H:%M:%S %z"),
@@ -17,13 +18,15 @@ class AbstractParser:
             "description": info.find("description").getText(),
         }
 
-    def get_article_soup(self, link):
+    @staticmethod
+    def get_article_soup(link):
         return BeautifulSoup(crawl_link(link), 'lxml')
 
     def parse_article_soup(self, soup):
         return {"content": ""}
 
-    def format_article(self, parsed_article, metadata, author):
+    @staticmethod
+    def format_article(parsed_article, metadata, author):
         return Article(
             date=metadata["date"],
             link=metadata["link"],
@@ -39,5 +42,6 @@ class AbstractParser:
             article_soup = self.get_article_soup(article_data["link"])
             parsed_article = self.parse_article_soup(article_soup)
 
-            result = self.format_article(parsed_article, article_data, author=author)
-            self.articles.append(result)
+            if parsed_article["content"]:
+                result = self.format_article(parsed_article, article_data, author=author)
+                self.articles.append(result)
