@@ -68,4 +68,3 @@ def test_format_article():
     result = parser.format_article(parsed_article, metadata, author="franceinfo")
 
     assert result == expected
-
