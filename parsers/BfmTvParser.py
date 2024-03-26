@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from models.Article import Article
 from parsers.BaseParser import BaseParser
 
