@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from datetime import datetime
+import dateutil.parser
 
 from crawlers import crawl_link
 from models.Article import Article
@@ -11,9 +11,12 @@ class BaseParser:
 
     @staticmethod
     def extract_rss_item_data(info):
+        shown_date = info.find("pubDate").getText()
+        usable_date = dateutil.parser.parse(shown_date)
+
         return {
             "link": info.find("link").getText(),
-            "date": datetime.strptime(info.find("pubDate").getText(), "%a, %d %b %Y %H:%M:%S %z"),
+            "date": usable_date,
             "title": info.find("title").getText(),
             "description": info.find("description").getText(),
         }

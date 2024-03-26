@@ -1,6 +1,6 @@
-from datetime import datetime, timezone, timedelta
-
+from datetime import datetime
 from bs4 import BeautifulSoup
+from dateutil.tz import tzutc
 
 from models.Article import Article
 from parsers.BfmTvParser import BfmTvParser
@@ -11,7 +11,7 @@ def test_extract_rss_item_data():
     expected = {
         "link": "https://www.bfmtv.com/sante/30-ans-du-sidaction-pourquoi-le-preservatif-est-encore-largement"
                 "-delaisse-chez-les-jeunes_AV-202403220844.html",
-        'date': datetime(2024, 3, 22, 20, 22, 28),
+        'date': datetime(2024, 3, 22, 20, 22, 28, tzinfo=tzutc()),
         "title": "30 ans du Sidaction: pourquoi le préservatif est encore largement délaissé chez les jeunes",
         "description": "Malgré la gratuité de certains préservatifs pour les jeunes de moins de 26 ans depuis 2023, "
                        "la mesure est méconnue puisque seulement 5% des concernés disent l'avoir demandé, "

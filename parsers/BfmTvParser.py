@@ -5,15 +5,6 @@ from parsers.BaseParser import BaseParser
 
 
 class BfmTvParser(BaseParser):
-    @staticmethod
-    def extract_rss_item_data(info):
-        return {
-            "link": info.find("link").getText(),
-            "date": datetime.strptime(info.find("pubDate").getText(), "%a, %d %b %Y %H:%M:%S %Z"),
-            "title": info.find("title").getText(),
-            "description": info.find("description").getText(),
-        }
-
     def parse_article_soup(self, soup):
         paragraphs = [
             paragraph.getText() for paragraph in soup.findAll("p")
