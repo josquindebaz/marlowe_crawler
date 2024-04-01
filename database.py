@@ -21,8 +21,7 @@ def is_in_table(url):
 
 def insert_in_table(article):
     if is_in_table(article.link):
-        # print(f"{article.link} already in the table")
-        return
+        return f"{article.link} already in the table"
 
     text = f"{article.description}\n{article.content}"
 
@@ -45,3 +44,4 @@ def insert_in_table(article):
     except:
         print(f"{article.link} insertion failed")
     cursor.close()
+    return "ok"
