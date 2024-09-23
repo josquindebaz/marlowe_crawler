@@ -1,5 +1,6 @@
 from Controller import Controller
 from parsers.BfmTvParser import BfmTvParser
+from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
 from parsers.RtlAfpParser import RtlAfpParser
@@ -50,3 +51,15 @@ if __name__ == "__main__":
         author="afp"
     )
     afp_controller.run()
+
+    euractiv_controller = Controller(
+        rss_links=[
+            'https://www.euractiv.fr/sections/international/feed',
+            'https://www.euractiv.fr/sections/economie/feed',
+            'https://www.euractiv.fr/sections/energie-climat/feed',
+            'https://www.euractiv.fr/sections/sante/feed',
+            'https://www.euractiv.fr/sections/politique/feed',
+        ],
+        parser=EuractivParser,
+        author='Euractiv'
+    )
