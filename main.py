@@ -60,6 +60,7 @@ if __name__ == "__main__":
             'https://www.euractiv.fr/sections/sante/feed',
             'https://www.euractiv.fr/sections/politique/feed',
         ],
-        parser=EuractivParser,
+        parser=EuractivParser(),
         author='Euractiv'
     )
+    euractiv_controller.run()
