@@ -27,14 +27,14 @@ class Controller:
 
             self.items_from_rss.append(rss)
             self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
-                            f'{rss["description"]} -> found {len(rss["articles"])} new articles')
+                            f'{self.author} -> found {len(rss["articles"])} new articles')
 
     def get_items_content(self):
         for rss_stream in self.items_from_rss:
             self.parser.process_articles(rss_stream, self.author)
             self.articles.extend(self.parser.articles)
             self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())}: '
-                            f'{rss_stream["description"]} -> crawled {len(self.parser.articles)} articles')
+                            f'{self.author} -> crawled {len(self.parser.articles)} articles')
 
     def store(self):
         for article in self.articles:
