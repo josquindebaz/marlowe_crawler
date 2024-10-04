@@ -1,7 +1,6 @@
 from Controller import Controller
 from parsers.RtlAfpParser import RtlAfpParser
 
-
 if __name__ == "__main__":
     controller = Controller(
         rss_links=[
@@ -11,3 +10,5 @@ if __name__ == "__main__":
         author="afp"
     )
     controller.run()
+
+    print(controller.articles)

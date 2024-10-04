@@ -15,3 +15,5 @@ if __name__ == "__main__":
         author="franceinfo"
     )
     controller.run()
+
+    print(controller.articles)
