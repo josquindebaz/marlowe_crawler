@@ -37,12 +37,13 @@ class Controller:
                             f'{self.author} -> crawled {len(self.parser.articles)} articles')
 
     def store(self):
+        success = 0
         for article in self.articles:
-            self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
-                            f'Inserting {article.title}')
             result = database.insert_in_table(article)
             if result != 'ok':
-                self.log.append(result)
+                success +=1
+        self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
+                        f'{self.author} inserted {success} on {len(self.articles)}')
 
     def run(self):
         self.get_items_from_rss()
