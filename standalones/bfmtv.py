@@ -15,3 +15,5 @@ if __name__ == "__main__":
         author="bfmtv"
     )
     controller.run()
+
+    print(controller.articles)
