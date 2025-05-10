@@ -40,7 +40,7 @@ class Controller:
         success = 0
         for article in self.articles:
             result = database.insert_in_table(article)
-            if result != 'ok':
+            if result == 'ok':
                 success +=1
         self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
                         f'{self.author} inserted {success} on {len(self.articles)}')
