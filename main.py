@@ -4,6 +4,7 @@ from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
 from parsers.RtlAfpParser import RtlAfpParser
+from parsers.lemondeParser import LeMondeParser
 
 if __name__ == "__main__":
     franceinfo_controller = Controller(
@@ -64,3 +65,17 @@ if __name__ == "__main__":
         author='Euractiv'
     )
     euractiv_controller.run()
+
+    lemonde_controller = Controller(
+        rss_links=[
+            "https://www.lemonde.fr/rss/une.xml",
+            "https://www.lemonde.fr/international/rss_full.xml",
+            "https://www.lemonde.fr/sante/rss_full.xml",
+            "https://www.lemonde.fr/planete/rss_full.xml",
+            "https://www.lemonde.fr/politique/rss_full.xml",
+            "https://www.lemonde.fr/afrique-climat-et-environnement/rss_full.xml"
+        ],
+        parser=LeMondeParser(),
+        author="Le Monde"
+    )
+    lemonde_controller.run()
