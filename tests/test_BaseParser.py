@@ -8,7 +8,7 @@ from rss_parser import get_rss_soup
 def test_extract_france_info_rss_item_data():
     expected = {
         "link": "https://www.francetvinfo.fr/monde/russie/vladimir-poutine/presidentielle-en-russie-jusqu-ou-peut"
-                "-aller-vladimir-poutine_6433624.html#xtor=RSS-3-[general]",
+                "-aller-vladimir-poutine_6433624.html",
         'date': datetime(2024, 3, 19, 9, 7, 52, tzinfo=timezone(timedelta(seconds=3600))),
         "title": "A title",
         "description": "Some article description",
