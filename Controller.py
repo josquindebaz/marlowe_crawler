@@ -6,10 +6,11 @@ from rss_parser import get_rss_soup
 
 
 class Controller:
-    def __init__(self, rss_links, parser, author):
+    def __init__(self, rss_links, parser, author, use_db=True):
         self._rss_links = rss_links
         self._parser = parser
         self._author = author
+        self._use_db = use_db
 
         self._items_from_rss = []
         self._log = []
@@ -24,7 +25,7 @@ class Controller:
 
             rss["articles"] = [
                 item for item in rss["articles"]
-                if not database.is_in_table(item.find("link").getText())
+                if self._use_db and not database.is_in_table(item.find("link").getText())
             ]
 
             self._items_from_rss.append(rss)
@@ -49,6 +50,7 @@ class Controller:
     def run(self):
         self.get_items_from_rss()
         self.get_items_content()
-        self.store()
+        if self._use_db:
+            self.store()
 
         print("\n".join(self._log))

@@ -7,7 +7,8 @@ if __name__ == "__main__":
             'https://example.com/rss'   #Replace me
         ],
         parser = BaseParser(),          #Replace me
-        author = "db_author_name"       #Replace me
+        author = "db_author_name",      #Replace me
+        use_db = False
     )
     controller.run()
 
