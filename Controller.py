@@ -6,48 +6,51 @@ from rss_parser import get_rss_soup
 
 
 class Controller:
-    def __init__(self, rss_links, parser, author):
-        self.rss_links = rss_links
-        self.parser = parser
-        self.author = author
+    def __init__(self, rss_links, parser, author, use_db=True):
+        self._rss_links = rss_links
+        self._parser = parser
+        self._author = author
+        self._use_db = use_db
 
-        self.items_from_rss = []
+        self._items_from_rss = []
+        self._log = []
+
         self.articles = []
-        self.log = []
 
     def get_items_from_rss(self):
-        self.items_from_rss = []
-        for rss_link in self.rss_links:
+        self._items_from_rss = []
+
+        for rss_link in self._rss_links:
             rss = get_rss_soup(crawl_link(rss_link))
 
             rss["articles"] = [
                 item for item in rss["articles"]
-                if not database.is_in_table(item.find("link").getText())
+                if self._use_db and not database.is_in_table(item.find("link").getText())
             ]
 
-            self.items_from_rss.append(rss)
-            self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
-                            f'{self.author} -> found {len(rss["articles"])} new articles')
+            self._items_from_rss.append(rss)
+            self._log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
+                             f'{self._author} -> found {len(rss["articles"])} new articles')
 
     def get_items_content(self):
-        for rss_stream in self.items_from_rss:
-            self.parser.process_articles(rss_stream, self.author)
-            self.articles.extend(self.parser.articles)
-            self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())}: '
-                            f'{self.author} -> crawled {len(self.parser.articles)} articles')
+        for rss_stream in self._items_from_rss:
+            self._parser.process_articles(rss_stream, self._author)
+            self.articles.extend(self._parser.articles)
+            self._log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime())}: '
+                             f'{self._author} -> crawled {len(self._parser.articles)} articles')
 
     def store(self):
-        success = 0
+        insert_count = 0
         for article in self.articles:
-            result = database.insert_in_table(article)
-            if result == 'ok':
-                success +=1
-        self.log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
-                        f'{self.author} inserted {success} on {len(self.articles)}')
+            insert_count += database.insert_in_table(article)
+
+        self._log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
+                         f'{self._author} inserted {insert_count} on {len(self.articles)}')
 
     def run(self):
         self.get_items_from_rss()
         self.get_items_content()
-        self.store()
+        if self._use_db:
+            self.store()
 
-        print("\n".join(self.log))
+        print("\n".join(self._log))
