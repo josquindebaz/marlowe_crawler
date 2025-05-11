@@ -14,8 +14,11 @@ class BaseParser:
         shown_date = info.find("pubDate").getText()
         usable_date = dateutil.parser.parse(shown_date)
 
+        link = info.find("link").getText()
+        url_without_fragment = link.split("#")[0]
+
         return {
-            "link": info.find("link").getText(),
+            "link": url_without_fragment,
             "date": usable_date,
             "title": info.find("title").getText(),
             "description": info.find("description").getText(),

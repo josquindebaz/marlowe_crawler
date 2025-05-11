@@ -56,16 +56,19 @@ def test_extract_rss_item_data():
 
 
 def test_parse_article_soup():
-    expected = ('Les corps sans vie de deux des six ouvriers recherchés ont été repêchés mercredi des eaux glacées du '
+    expected_chapo = ('Les corps sans vie de deux des six ouvriers recherchés ont été repêchés mercredi des eaux glacées du '
                 'port de Baltimore, sur la côte Est américaine, ont annoncé les autorités, au lendemain de '
                 'l\'effondrement spectaculaire d\'un pont percuté par un porte-conteneurs.')
-    content = '<div class="article__body article-body"><p class="article-body__summary">%s</p>' % expected
+    expected_content = 'Lorem Ipsum'
+    content = '<div class="article__body article-body"><p class="article-body__summary">%s</p><p>%s</p>' % (
+        expected_chapo, expected_content)
     soup = BeautifulSoup(content, 'lxml')
 
     parser = RtlAfpParser()
     result = parser.parse_article_soup(soup)
 
-    assert result["content"] == expected
+    assert result["description"] == expected_chapo
+    assert result["content"] == expected_content
 
 
 def test_format_article():
