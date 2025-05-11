@@ -41,10 +41,15 @@ def insert_in_table(article):
     try:
         cursor.execute(request, data)
         db.commit()
-    # print(cursor.rowcount, "record inserted.")
+        cursor.close()
+        db.close()
+
+        return 1
+
     except:
         print(f"{article.link} insertion failed")
-    cursor.close()
-    db.close()
+        cursor.close()
+        db.close()
 
-    return "ok"
+        return 0
+
