@@ -42,7 +42,9 @@ class Controller:
     def store(self):
         insert_count = 0
         for article in self.articles:
-            insert_count += database.insert_in_table(article)
+            is_inserted = database.insert_in_table(article)
+            if is_inserted:
+                insert_count += 1
 
         self._log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
                          f'{self._author} inserted {insert_count} on {len(self.articles)}')

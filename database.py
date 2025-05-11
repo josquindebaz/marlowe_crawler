@@ -44,12 +44,12 @@ def insert_in_table(article):
         cursor.close()
         db.close()
 
-        return 1
+        return True
 
     except:
         print(f"{article.link} insertion failed")
         cursor.close()
         db.close()
 
-        return 0
+        return False 
 
