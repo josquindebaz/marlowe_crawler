@@ -25,12 +25,18 @@ class Controller:
 
             rss["articles"] = [
                 item for item in rss["articles"]
-                if self._use_db and not database.is_in_table(item.find("link").getText())
+                if self.is_to_be_crawled(item.find("link").getText())
             ]
 
             self._items_from_rss.append(rss)
             self._log.append(f'{time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.localtime())}: '
                              f'{self._author} -> found {len(rss["articles"])} new articles')
+
+    def is_to_be_crawled(self, url):
+        if not self._use_db:
+            return True
+
+        return not database.is_in_table(url)
 
     def get_items_content(self):
         for rss_stream in self._items_from_rss:
