@@ -1,4 +1,3 @@
-import random
 import urllib3
 
 
@@ -9,4 +8,3 @@ def crawl_link(url):
         return request.data
 
     return ""
-
