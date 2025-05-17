@@ -69,11 +69,17 @@ if __name__ == "__main__":
 
     lemonde_controller = Controller(
         rss_links=[
+            "https://www.lemonde.fr/politique/rss_full.xml",
+            "https://www.lemonde.fr/societe/rss_full.xml",
+            "https://www.lemonde.fr/les-decodeurs/rss_full.xml",
             "https://www.lemonde.fr/international/rss_full.xml",
             "https://www.lemonde.fr/sante/rss_full.xml",
             "https://www.lemonde.fr/planete/rss_full.xml",
             "https://www.lemonde.fr/politique/rss_full.xml",
-            "https://www.lemonde.fr/afrique-climat-et-environnement/rss_full.xml"
+            "https://www.lemonde.fr/afrique-climat-et-environnement/rss_full.xml",
+            "https://www.lemonde.fr/editoriaux/rss_full.xml",
+            "https://www.lemonde.fr/chroniques/rss_full.xml",
+            "https://www.lemonde.fr/tribunes/rss_full.xml",
         ],
         parser=LeMondeParser(),
         author="Le Monde"
