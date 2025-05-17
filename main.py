@@ -1,4 +1,5 @@
 from Controller import Controller
+from parsers.ActualitesNewsEnvironnementParser import ActualitesNewsEnvironnementParser
 from parsers.BfmTvParser import BfmTvParser
 from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
@@ -78,3 +79,11 @@ if __name__ == "__main__":
         author="Le Monde"
     )
     lemonde_controller.run()
+
+    actualites_new_environnement_controller = Controller(        rss_links = [
+            'https://www.actualites-news-environnement.com/rss.php'
+        ],
+        parser = ActualitesNewsEnvironnementParser(),
+        author = "Actualités news environnement",
+    )
+    actualites_new_environnement_controller.run()
