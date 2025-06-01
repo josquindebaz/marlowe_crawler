@@ -44,10 +44,14 @@ class BaseParser:
 
     def process_articles(self, rss, author):
         for raw_article in rss["articles"]:
-            article_data = self.extract_rss_item_data(raw_article)
-            article_soup = self.get_article_soup(article_data["link"])
-            parsed_article = self.parse_article_soup(article_soup)
+            try:
+                article_data = self.extract_rss_item_data(raw_article)
+                article_soup = self.get_article_soup(article_data["link"])
+                parsed_article = self.parse_article_soup(article_soup)
 
-            if parsed_article["content"]:
-                result = self.format_article(parsed_article, article_data, author=author)
-                self.articles.append(result)
+                if parsed_article["content"]:
+                    result = self.format_article(parsed_article, article_data, author=author)
+                    self.articles.append(result)
+
+            except Exception as error:
+                print(f"parse article error: {str(error)}")
