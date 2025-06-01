@@ -56,8 +56,16 @@ class Controller:
                          f'{self._author} inserted {insert_count} on {len(self.articles)}')
 
     def run(self):
-        self.get_items_from_rss()
-        self.get_items_content()
+        try:
+            self.get_items_from_rss()
+        except Exception as error:
+            self._log.append(f"rss error: {str(error)}")
+
+        try:
+            self.get_items_content()
+        except Exception as error:
+            self._log.append(f"content error: {str(error)}")
+
         if self._use_db:
             self.store()
 
