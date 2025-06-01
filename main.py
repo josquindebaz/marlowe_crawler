@@ -56,11 +56,12 @@ if __name__ == "__main__":
 
     euractiv_controller = Controller(
         rss_links=[
-            'https://www.euractiv.fr/sections/international/feed',
-            'https://www.euractiv.fr/sections/economie/feed',
-            'https://www.euractiv.fr/sections/energie-climat/feed',
-            'https://www.euractiv.fr/sections/sante/feed',
-            'https://www.euractiv.fr/sections/politique/feed',
+            'https://www.euractiv.fr/sections/agriculture-food/?feed=mcfeed',
+            'https://www.euractiv.fr/sections/economy-jobs/?feed=mcfeed',
+            'https://www.euractiv.fr/sections/eet/?feed=mcfeed',
+            'https://www.euractiv.fr/sections/health-consumers/?feed=mcfeed',
+            'https://www.euractiv.fr/sections/politics/?feed=mcfeed',
+            'https://www.euractiv.fr/sections/tech/?feed=mcfeed'
         ],
         parser=EuractivParser(),
         author='Euractiv'
