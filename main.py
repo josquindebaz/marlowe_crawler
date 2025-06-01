@@ -18,18 +18,16 @@ if __name__ == "__main__":
             'https://www.francetvinfo.fr/monde.rss'
         ],
         parser=FranceInfoParser(),
-        author="franceinfo"
+        author="franceinfo",
     )
-    franceinfo_controller.run()
 
     france24_controller = Controller(
         rss_links=[
             'https://www.france24.com/fr/rss'
         ],
         parser=France24Parser(),
-        author="france24"
+        author="france24",
     )
-    france24_controller.run()
 
     bfmtv_controller = Controller(
         rss_links=[
@@ -41,18 +39,16 @@ if __name__ == "__main__":
             "https://www.bfmtv.com/rss/international/europe/",
         ],
         parser=BfmTvParser(),
-        author="bfmtv"
+        author="bfmtv",
     )
-    bfmtv_controller.run()
 
     afp_controller = Controller(
         rss_links=[
             "https://infos.rtl.lu/rss/monde",
         ],
         parser=RtlAfpParser(),
-        author="afp"
+        author="afp",
     )
-    afp_controller.run()
 
     euractiv_controller = Controller(
         rss_links=[
@@ -64,9 +60,8 @@ if __name__ == "__main__":
             'https://www.euractiv.fr/sections/tech/?feed=mcfeed'
         ],
         parser=EuractivParser(),
-        author='Euractiv'
+        author='Euractiv',
     )
-    euractiv_controller.run()
 
     lemonde_controller = Controller(
         rss_links=[
@@ -83,14 +78,27 @@ if __name__ == "__main__":
             "https://www.lemonde.fr/tribunes/rss_full.xml",
         ],
         parser=LeMondeParser(),
-        author="Le Monde"
+        author="Le Monde",
     )
-    lemonde_controller.run()
 
-    actualites_new_environnement_controller = Controller(        rss_links = [
+    actualites_new_environnement_controller = Controller(
+        rss_links=[
             'https://www.actualites-news-environnement.com/rss.php'
         ],
-        parser = ActualitesNewsEnvironnementParser(),
-        author = "Actualités news environnement",
+        parser=ActualitesNewsEnvironnementParser(),
+        author="Actualités news environnement",
     )
-    actualites_new_environnement_controller.run()
+
+    controller_list = [
+        franceinfo_controller,
+        france24_controller,
+        bfmtv_controller,
+        afp_controller,
+        euractiv_controller,
+        lemonde_controller,
+        actualites_new_environnement_controller
+    ]
+
+    for controller in controller_list:
+        print("Crawling: ", controller.author)
+        controller.run()
