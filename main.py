@@ -1,5 +1,6 @@
 from Controller import Controller
 from parsers.ActualitesNewsEnvironnementParser import ActualitesNewsEnvironnementParser
+from parsers.AgoravoxParser import AgoravoxParser
 from parsers.BfmTvParser import BfmTvParser
 from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
@@ -89,6 +90,25 @@ if __name__ == "__main__":
         author="Actualités news environnement",
     )
 
+    agoravox_controller = Controller(
+        rss_links=[
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=35",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=30",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=37",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=29",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=28",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=39",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=33",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=31",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=45",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=36",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=32",
+            "https://www.agoravox.fr/spip.php?page=backend&id_rubrique=34"
+        ],
+        parser=AgoravoxParser(),
+        author="Agoravox"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -96,7 +116,8 @@ if __name__ == "__main__":
         afp_controller,
         euractiv_controller,
         lemonde_controller,
-        actualites_new_environnement_controller
+        actualites_new_environnement_controller,
+        agoravox_controller
     ]
 
     for controller in controller_list:
