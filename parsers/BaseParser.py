@@ -9,9 +9,8 @@ class BaseParser:
     def __init__(self):
         self.articles = []
 
-    @staticmethod
-    def extract_rss_item_data(info):
-        shown_date = info.find("pubDate").getText()
+    def extract_rss_item_data(self, info):
+        shown_date = self.extract_date(info)
         usable_date = dateutil.parser.parse(shown_date)
 
         link = info.find("link").getText()
@@ -23,6 +22,18 @@ class BaseParser:
             "title": info.find("title").getText(),
             "description": info.find("description").getText(),
         }
+
+    @staticmethod
+    def extract_date(info):
+        pubDate = info.find("pubDate")
+        if pubDate:
+            return pubDate.getText()
+
+        dcDate = info.find("dc:date")
+        if dcDate:
+            return dcDate.getText()
+
+        return None
 
     @staticmethod
     def get_article_soup(link):
