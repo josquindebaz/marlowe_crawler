@@ -6,6 +6,7 @@ from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
 from parsers.RtlAfpParser import RtlAfpParser
+from parsers.TelosParser import TelosParser
 from parsers.lemondeParser import LeMondeParser
 
 if __name__ == "__main__":
@@ -109,6 +110,14 @@ if __name__ == "__main__":
         author="Agoravox"
     )
 
+    telos_controller = Controller(
+        rss_links=[
+            "https://www.telos-eu.com/fr/rss.xml",
+        ],
+        parser=TelosParser(),
+        author="Telos"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -117,7 +126,8 @@ if __name__ == "__main__":
         euractiv_controller,
         lemonde_controller,
         actualites_new_environnement_controller,
-        agoravox_controller
+        agoravox_controller,
+        telos_controller
     ]
 
     for controller in controller_list:
