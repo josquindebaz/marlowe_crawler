@@ -5,6 +5,7 @@ from parsers.BfmTvParser import BfmTvParser
 from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
+from parsers.OmcParser import OmcParser
 from parsers.RtlAfpParser import RtlAfpParser
 from parsers.TelosParser import TelosParser
 from parsers.lemondeParser import LeMondeParser
@@ -118,6 +119,14 @@ if __name__ == "__main__":
         author="Telos"
     )
 
+    omc_controller = Controller(
+        rss_links=[
+            'http://www.wto.org/library/rss/latest_news_f.xml'
+        ],
+        parser=OmcParser(),
+        author="OMC"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -127,7 +136,8 @@ if __name__ == "__main__":
         lemonde_controller,
         actualites_new_environnement_controller,
         agoravox_controller,
-        telos_controller
+        telos_controller,
+        omc_controller
     ]
 
     for controller in controller_list:
