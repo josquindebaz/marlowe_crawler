@@ -2,6 +2,7 @@ from Controller import Controller
 from parsers.ActualitesNewsEnvironnementParser import ActualitesNewsEnvironnementParser
 from parsers.AgoravoxParser import AgoravoxParser
 from parsers.BfmTvParser import BfmTvParser
+from parsers.DedefensaParser import DedefensaParser
 from parsers.EuractivParser import EuractivParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
@@ -127,6 +128,12 @@ if __name__ == "__main__":
         author="OMC"
     )
 
+    dedefensa_controller = Controller(
+        rss_links=["https://www.dedefensa.org/rss"],
+        parser=DedefensaParser(),
+        author="Dedefensa"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -137,7 +144,8 @@ if __name__ == "__main__":
         actualites_new_environnement_controller,
         agoravox_controller,
         telos_controller,
-        omc_controller
+        omc_controller,
+        dedefensa_controller
     ]
 
     for controller in controller_list:
