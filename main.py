@@ -1,4 +1,5 @@
 from Controller import Controller
+from parsers.A20minutesParser import A20minutesParser
 from parsers.ActualitesNewsEnvironnementParser import ActualitesNewsEnvironnementParser
 from parsers.AgoravoxParser import AgoravoxParser
 from parsers.BfmTvParser import BfmTvParser
@@ -134,6 +135,17 @@ if __name__ == "__main__":
         author="Dedefensa"
     )
 
+    a20minutes_controller = Controller(
+        rss_links=[
+            "https://www.20minutes.fr/feeds/rss-monde.xml",
+            "https://www.20minutes.fr/feeds/rss-planete.xml",
+            "https://www.20minutes.fr/feeds/rss-economie.xml",
+
+        ],
+        parser=A20minutesParser(),
+        author="20minutes"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -145,7 +157,8 @@ if __name__ == "__main__":
         agoravox_controller,
         telos_controller,
         omc_controller,
-        dedefensa_controller
+        dedefensa_controller,
+        a20minutes_controller
     ]
 
     for controller in controller_list:
