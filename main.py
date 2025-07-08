@@ -5,6 +5,7 @@ from parsers.AgoravoxParser import AgoravoxParser
 from parsers.BfmTvParser import BfmTvParser
 from parsers.DedefensaParser import DedefensaParser
 from parsers.EuractivParser import EuractivParser
+from parsers.EuronewsParser import EuronewsParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
 from parsers.OmcParser import OmcParser
@@ -146,6 +147,12 @@ if __name__ == "__main__":
         author="20minutes"
     )
 
+    euronews_controller = Controller(
+        rss_links=["https://fr.euronews.com/rss"],
+        parser=EuronewsParser(),
+        author="Euronews"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -158,7 +165,8 @@ if __name__ == "__main__":
         telos_controller,
         omc_controller,
         dedefensa_controller,
-        a20minutes_controller
+        a20minutes_controller,
+        euronews_controller
     ]
 
     for controller in controller_list:
