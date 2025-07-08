@@ -8,6 +8,7 @@ from parsers.EuractivParser import EuractivParser
 from parsers.EuronewsParser import EuronewsParser
 from parsers.France24Parser import France24Parser
 from parsers.FranceInfoParser import FranceInfoParser
+from parsers.LocaltisParser import LocaltisParser
 from parsers.OmcParser import OmcParser
 from parsers.RtlAfpParser import RtlAfpParser
 from parsers.TelosParser import TelosParser
@@ -153,6 +154,12 @@ if __name__ == "__main__":
         author="Euronews"
     )
 
+    localtis_controller = Controller(
+        rss_links=["https://www.banquedesterritoires.fr/flux/localtis.xml"],
+        parser=LocaltisParser(),
+        author="Localtis"
+    )
+
     controller_list = [
         franceinfo_controller,
         france24_controller,
@@ -166,7 +173,8 @@ if __name__ == "__main__":
         omc_controller,
         dedefensa_controller,
         a20minutes_controller,
-        euronews_controller
+        euronews_controller,
+        localtis_controller
     ]
 
     for controller in controller_list:
