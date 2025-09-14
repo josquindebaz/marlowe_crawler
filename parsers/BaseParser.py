@@ -15,9 +15,10 @@ class BaseParser:
 
         link = info.find("link").getText()
         url_without_fragment = link.split("#")[0]
+        url = url_without_fragment.strip()
 
         return {
-            "link": url_without_fragment,
+            "link": url,
             "date": usable_date,
             "title": info.find("title").getText(),
             "description": info.find("description").getText(),
