@@ -3,10 +3,13 @@ from parsers.BaseParser import BaseParser
 
 class EuractivParser(BaseParser):
     def parse_article_soup(self, soup):
-        result = soup.find("div", {"class": "ea-article-body-content"})
-        if not result:
-            return {"content": ""}
+        chapo = soup.find("p", {"class": "c-news-detail__sub-title"}).getText()
+
+        paragraphs = [
+            paragraph.getText() for paragraph in soup.findAll("p")
+            if paragraph.attrs == {"style" : "text-align: left"}
+        ]
 
         return {
-            "content": result.getText()
+            "content":  chapo + "\n" + "\n".join(paragraphs),
         }
