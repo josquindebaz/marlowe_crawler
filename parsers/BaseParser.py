@@ -20,7 +20,7 @@ class BaseParser:
         return {
             "link": url,
             "date": usable_date,
-            "title": info.find("title").getText(),
+            "title": info.find("title").getText().strip(),
             "description": info.find("description").getText(),
         }
 
